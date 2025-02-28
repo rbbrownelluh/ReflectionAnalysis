@@ -59,3 +59,18 @@ This script assumes that your reflection assignments are named and organized lik
 This one is one-size fits all, so no modifications needed.
 
 #### 4singlefile.py
+
+Ditto!
+
+## Running the Scripts
+
+When I used ChatGPT to make the first script, I followed that by asking "Ok. I added the file to the folder. how do I run it?” And then I followed its instructions. If you don't know how to run python scripts, like I didn't, it is easily googleable. Beyond having python installed, you will need to made sure you also have `beautifulsoup4` installed. You can do that by putting `pip install beautifulsoup4` in the command line. If this jargon scares you, I promise it is simpler than you think. You can even give an AI tool the files in this repository and ask it what you need to do to run them, as I did.
+
+## Using the Final Outputs
+
+You will have one html file for each student, and one html file with compiled reflections for all students when you are done processing reflections with the above scripts. Once you have those files, you have some options about how to use them.
+
+1. You can open them like any other file and read them. They will open in your default browser, and you can interact with them as you would any other basic HTML page.
+2. You can feed them to an AI chat and ask it questions. I've included a prompt that I've used to do that with ChatGPT as a model, but you will need to adjust it based on the subject of your course and your preferences.
+3. You can create something like a Custom GPT so you can have a more permanent tool to use over time. I've included a sample set of instructions for the GPT I use. [You can access a sample GPT here] (https://chatgpt.com/g/g-vIcMYYOYn-legal-research-reflection-analyst) to see a tase of the capabilities, or you can take and modify the one in this repository to make your own.
+
