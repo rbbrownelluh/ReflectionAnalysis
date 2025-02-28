@@ -1,24 +1,21 @@
 import os
 import re
+from collections import defaultdict
 from bs4 import BeautifulSoup
 
 # Define the base directory where the folders are located
 base_directory = "."
 output_directory = os.path.dirname(os.path.abspath(__file__))
 
-# Dictionary to hold the list of HTML files
-html_files = {}
+# Dictionary to group files by H1 number
+html_files_by_number = defaultdict(list)
 
 # Iterate through all the subdirectories in the base directory
 for root, dirs, files in os.walk(base_directory):
     for file in files:
         if file.endswith(".html"):
             file_path = os.path.join(root, file)
-
-            if file not in html_files:
-                html_files[file] = []
-
-            html_files[file].append(file_path)
+            html_files_by_number[file_path] = file_path
 
 # Function to extract order based on folder name and H1 tag
 def get_reflection_order(file_path):
@@ -33,7 +30,7 @@ def get_reflection_order(file_path):
     # Default order if folder name does not match expected pattern
     return float('inf')
 
-# Function to retain all headings and their following divs, modifying headings as needed
+# Function to extract headings and their following divs, modifying headings as needed
 def extract_headings_and_divs(html_content):
     soup = BeautifulSoup(html_content, "html.parser")
 
@@ -48,7 +45,7 @@ def extract_headings_and_divs(html_content):
         heading.replace_with(strong_tag)
 
     extracted_content = ""
-    h1_numbers = []
+    h1_number = None
 
     # Extract all <h1> headings and their following divs
     for heading in soup.find_all("h1"):
@@ -59,7 +56,7 @@ def extract_headings_and_divs(html_content):
         # Extract the number from the <h1> text
         match = re.search(r":\s*(\d+)$", heading.get_text(strip=True))
         if match:
-            h1_numbers.append(match.group(1))
+            h1_number = match.group(1)
 
         # Find the next div sibling and process it
         sibling = heading.find_next_sibling()
@@ -72,31 +69,22 @@ def extract_headings_and_divs(html_content):
                 tag.attrs = {}
             extracted_content += str(sibling) + "\n"
 
-    return extracted_content, h1_numbers
+    return extracted_content, h1_number
 
-# Iterate over all the HTML files with the same name
-for filename, file_list in html_files.items():
-    # Sort the files by the reflection number extracted from the folder name
-    file_list_sorted = sorted(file_list, key=lambda x: get_reflection_order(x))
+# Dictionary to group content by extracted H1 number
+grouped_content = defaultdict(str)
 
-    combined_content = ""
-    all_numbers = []
+# Process files and group by H1 number
+for file_path in html_files_by_number.keys():
+    with open(file_path, "r") as f:
+        html_content = f.read()
+        headings_and_divs, h1_number = extract_headings_and_divs(html_content)
+        if h1_number:
+            grouped_content[h1_number] += headings_and_divs
 
-    for file_path in file_list_sorted:
-        with open(file_path, "r") as f:
-            html_content = f.read()
-            headings_and_divs, h1_numbers = extract_headings_and_divs(html_content)
-            combined_content += headings_and_divs
-            all_numbers.extend(h1_numbers)
-
-    # Use the first number for the filename, if available
-    file_number = all_numbers[0] if all_numbers else "unknown"
-
-    # Define the output file path using the extracted number
-    output_file = os.path.join(output_directory, f"combined_{file_number}_reflections.html")
-
-    # Write the processed content to the output file
+# Write each group of reflections into a separate file
+for h1_number, content in grouped_content.items():
+    output_file = os.path.join(output_directory, f"combined_{h1_number}_reflections.html")
     with open(output_file, "w") as output:
-        output.write(combined_content)
-
+        output.write(content)
     print(f"Combined HTML files saved to {output_file}")
