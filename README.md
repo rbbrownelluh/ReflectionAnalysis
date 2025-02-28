@@ -15,7 +15,8 @@ To use these files, you will have to do a bit of preparation.
 
 Is this one, you will need to add your student's names and unique numerical identifiers for each with a text editor like Visual Studio Code. The file has notes for where and how to put it, but yours should look someting like this:
 
-`replacements = [
+```
+replacements = [
     ('Laura Palmer', '82'),
     ('Dale Cooper', '22'),
     ('Audrey Horne', '44'),
@@ -26,7 +27,8 @@ Is this one, you will need to add your student's names and unique numerical iden
     ('James Hurley', '91'),
     ('Josie Packard', '36'),
     # Add more pairs as needed
-]`
+]
+```
 
 The names should be as they exist in your roster on Canvas. What I did was make a spreadsheet with the students name in one column, random numbers in the next, and then a formula to take the first two cells and convert it into the format above (`="('"&A2&"', '"&B2&"'),"`). However you choose to do it, make sure that you save a key to tell you which number corresponds with which student so _you_ can know which student the AI refers to, without the AI knowing which student it is reffering to.
 
