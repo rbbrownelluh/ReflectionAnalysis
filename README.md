@@ -2,11 +2,11 @@
 
 ## Purpose
 
-This repository is a collection of files and instructions to anonymize and compile student reflections exported from the Canvas LMS.
+This repository contains files and instructions to anonymize and compile student reflections exported from the Canvas LMS.
 
 This is part of a project to test the capabilities of generative AI to write Python code to automate the tedious task of anonymizing and compiling student's reflections to feed the resulting structured output to an AI model in an AI-digestible format while maintaining student privacy. One can then use the AI model with student reflections to evaluate trends in students' learning and quickly adjust teaching to improve instructional effectiveness.
 
-I generated the Python scripts in this repository without any understanding of the Python language. This is evidence of the fact that one needn't need much technical proficiency to use these tools and techniques.
+I generated the Python scripts in this repository without any understanding of the Python language. So despite what you may think, you can do this without much technical proficiency.
 
 I've made these files publicly available in hopes that others will use more reflective exercises (which are a valuable form of formative assessment) in their courses, see how generative AI can be useful to help evaluate their instruction and their students' learning, and be convinced that they don't need to be a computer scientist to do computer sciency things.
 
@@ -84,3 +84,4 @@ You will have one html file for each student, and a single html file with all st
 1. You can open them like any other file and read them. They will open in your default web browser, and you can interact with them as you would any other basic HTML page.
 2. You can feed them to an AI chat and ask it questions. I've included a [sample prompt](https://github.com/rbbrownelluh/ReflectionAnalysis/blob/main/samplestartprompt.txt) that I've used to do that with ChatGPT, but you will need to adjust it based on the subject of your course and your preferences.
 3. You can create something like a custom GPT so you can have a more permanent tool to use over time. I've included a [sample set of instructions](https://github.com/rbbrownelluh/ReflectionAnalysis/blob/main/SampleGPTInstructions.txt) for a custom GPT that I use. I also made a [puclic custom GPT](https://chatgpt.com/g/g-vIcMYYOYn-legal-research-reflection-analyst) so anyone can preview some of the capabilites with a sample set of processed reflections.
+
